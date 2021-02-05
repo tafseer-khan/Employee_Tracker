@@ -25,11 +25,40 @@ start = () => {
             "View All Employees",
             "View Employees by Role",
             "View Employees by Department",
-            "Add Employee",
             "Update Employee",
+            "Add Employee",
             "Add Role",
-            "Add Department"
+            "Add Department",
+            "Exit"
         ]
         }
-    ])
+    ]).then((data) => {
+        switch (data.choice){
+            case "View All Employees":
+                viewAll();
+            break;
+            case "View Employees by Role":
+                vBR();
+            break;
+            case "View Employees by Department":
+                vBD();
+            break;
+            case "Update Employee":
+                update();
+            break;
+            case "Add Employee":
+                addE();
+            break;
+            case "Add Role":
+                addR();
+            break;
+            case "Add Department":
+                addD();
+            break;
+            case "Exit":
+                connection.end();
+
+
+        }
+    })
 }
