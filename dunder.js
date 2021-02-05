@@ -1,5 +1,6 @@
 const inquirer = require("inquirer")
 const mysql = require("mysql")
+const cTable = require('console.table')
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -15,8 +16,8 @@ const connection = mysql.createConnection({
     start();
 });
 
-start = () => {
-    inquirer.prompt([
+const start = () => {
+    inquirer.prompt(
         {
             type: "list",
             message: "What action would you like to run?",
@@ -32,7 +33,7 @@ start = () => {
             "Exit"
         ]
         }
-    ]).then((data) => {
+    ).then((data) => {
         switch (data.choice){
             case "View All Employees":
                 viewAll();
@@ -57,36 +58,43 @@ start = () => {
             break;
             case "Exit":
                 connection.end();
+            break;
 
 
         }
     })
 }
+const viewAll = () => {
+    connection.query("SELECT * FROM employee",
+    (err,res) => {
+        if (err) throw err;
+        console.log(res);
+        start();
+    }
+    
+    )}
 
-viewAll = () => {
 
-}
-
-vBR = () => {
+const vBR = () => {
     
 }
 
-vBD = () => {
+const vBD = () => {
     
 }
 
-update = () => {
+const update = () => {
     
 }
 
-addE = () => {
+const addE = () => {
     
 }
 
-addR = () => {
+const addR = () => {
     
 }
 
-addD = () => {
+const addD = () => {
     
 }
