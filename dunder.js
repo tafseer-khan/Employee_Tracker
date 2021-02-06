@@ -1,8 +1,6 @@
-
 // Dependencies
 const inquirer = require("inquirer")
 const mysql = require("mysql")
-const cTable = require('console.table');
 
 // My Database
 const connection = mysql.createConnection({
