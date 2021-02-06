@@ -126,6 +126,17 @@ const selectManager = () => {
   })
   return managers;
 }
+let departments = [];
+const selectDepartment = () => {
+    connection.query("SELECT name, id FROM department", (err,res) => {
+        if (err) throw err;
+        for (var i = 0; i < res.length; i++){
+            departments.push(res[i].name)
+        }
+    
+    })
+    return departments;
+}
 // Add Employees
 const addE = () => { 
     inquirer.prompt([
@@ -228,13 +239,22 @@ const addR = () => {
           type: "input",
           message: "What is the Salary?"
 
-        } 
+        },
+        {
+            name: "Department",
+            type: "list",
+            message: "Which Department?",
+            choices: selectDepartment()
+        }
     ]).then((res) => {
+        console.log(res)
+        let depId = selectDepartment().indexOf(res.Department) + 1;
         connection.query(
             "INSERT INTO role SET ?",
             {
               title: res.Title,
               salary: res.Salary,
+              department_id: depId
             },
             function(err) {
                 if (err) throw err
