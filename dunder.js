@@ -184,7 +184,7 @@ const addE = () => {
 update = () => {
     connection.query("SELECT employee.last_name, employee.role_id, role.title FROM employee JOIN role ON employee.role_id = role.id;", (err, res) => {
         if (err) throw err
-        console.log(res)
+        console.table(res)
         inquirer.prompt([
             {
                 name: "lastName",
@@ -205,14 +205,19 @@ update = () => {
                 choices: selectRole()
             },
         ]).then((val) => {
+            console.log(val)
             let roleId = selectRole().indexOf(val.role) + 1
+            console.log(roleId)
             connection.query("UPDATE employee SET ? WHERE ?",
-                {
-                    roleId: roleId
-                },
-                {
-                    last_name: val.lastName,
-                },
+                [
+
+                    {
+                        role_id: roleId
+                    },
+                    {
+                        last_name: val.lastName,
+                    }
+                ],
                 (err) => {
                     if (err) throw err
                     console.table(val)
