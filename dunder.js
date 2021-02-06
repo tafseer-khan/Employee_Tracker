@@ -167,8 +167,8 @@ const addE = () => {
       let managerId = selectManager().indexOf(input.choice) + 1
       connection.query("INSERT INTO employee SET ?", 
       {
-          first_name: input.firstName,
-          last_name: input.lastName,
+          first_name: input.firstname,
+          last_name: input.lastname,
           manager_id: managerId,
           role_id: roleId
 
